@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="es" class="bg-ink text-bone">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Automake — Atención al cliente que se automatiza sola</title>
+<meta name="description" content="Plataforma de mensajería omnicanal con automatización por IA. WhatsApp, Instagram, web, email — todo en una bandeja con bots, métricas y equipo." />
+<meta property="og:title" content="Automake — Atención automatizada de verdad" />
+<meta property="og:description" content="Mensajería omnicanal + IA + equipo. Sin fricción." />
+<meta property="og:image" content="/brand-assets/logo_thumbnail.svg" />
+<link rel="icon" href="/brand-assets/favicon.svg" type="image/svg+xml" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink:    "#0A0A0F",
+        carbon: "#14141C",
+        steel:  "#1F1F2A",
+        line:   "#2A2A38",
+        bone:   "#F4F4F0",
+        muted:  "#8C8C9E",
+        iris:   "#6366F1",
+        amethyst:"#A855F7",
+        hot:    "#F0ABFC",
+        lime:   "#D9F99D"
+      },
+      fontFamily: {
+        display: ['"Instrument Serif"','ui-serif','Georgia','serif'],
+        sans:    ['"Geist"','ui-sans-serif','system-ui','sans-serif'],
+        mono:    ['"JetBrains Mono"','ui-monospace','monospace']
+      },
+      letterSpacing: {
+        tightest: '-0.04em',
+        ultra:    '-0.06em'
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  :root { color-scheme: dark; }
+  html, body { background: #0A0A0F; }
+  body {
+    background-image:
+      radial-gradient(60rem 40rem at 90% -10%, rgba(168,85,247,.18), transparent 60%),
+      radial-gradient(50rem 30rem at -10% 10%, rgba(99,102,241,.16), transparent 55%),
+      linear-gradient(180deg, #0A0A0F 0%, #0A0A0F 100%);
+  }
+  .grain::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.06;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .gridlines{
+    background-image:
+      linear-gradient(to right, rgba(244,244,240,.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(244,244,240,.045) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: -1px -1px;
+  }
+  .glow { box-shadow: 0 30px 80px -20px rgba(168,85,247,.35), 0 8px 30px -10px rgba(99,102,241,.25); }
+  .ring-line { box-shadow: inset 0 0 0 1px rgba(244,244,240,.08); }
+  .text-grad { background: linear-gradient(120deg, #F4F4F0 0%, #C4B5FD 38%, #F0ABFC 70%, #F4F4F0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .text-stroke { -webkit-text-stroke: 1px rgba(244,244,240,.65); color: transparent; }
+  .marquee { animation: marquee 38s linear infinite; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .reveal { opacity: 0; transform: translateY(18px); animation: reveal .9s cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes reveal { to { opacity:1; transform: translateY(0); } }
+  .pop  { animation: pop 1s cubic-bezier(.2,.9,.2,1) both; }
+  @keyframes pop { from { opacity:0; transform: scale(.96); } to { opacity:1; transform: scale(1); } }
+  .blink { animation: blink 1.1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .underline-grad {
+    background-image: linear-gradient(90deg, #A855F7, #F0ABFC);
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+  }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .chev { transform: rotate(45deg); }
+  .chev { transition: transform .25s ease; }
+  .tilt { transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+  .tilt:hover { transform: translateY(-3px) rotate(-.3deg); }
+  .btn-primary {
+    background: linear-gradient(120deg, #6366F1, #A855F7);
+    box-shadow: 0 12px 40px -10px rgba(168,85,247,.6), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .glass {
+    background: linear-gradient(180deg, rgba(20,20,28,.7), rgba(20,20,28,.4));
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+  }
+  .num { font-variant-numeric: tabular-nums; }
+  .stripes {
+    background-image: repeating-linear-gradient(45deg, rgba(244,244,240,.05) 0 2px, transparent 2px 8px);
+  }
+  .price-card[data-feature="true"] {
+    background: radial-gradient(120% 80% at 0% 0%, rgba(168,85,247,.18), transparent 60%), #14141C;
+    border-color: rgba(168,85,247,.4);
+  }
+  .scroll-hint::after {
+    content: ""; position: absolute; bottom: -22px; left: 50%; width: 1px; height: 36px;
+    background: linear-gradient(180deg, rgba(244,244,240,.6), transparent);
+    transform: translateX(-50%);
+  }
+</style>
+</head>
+<body class="grain font-sans antialiased min-h-screen selection:bg-amethyst/40">
+
+<!-- NAV -->
+<header class="sticky top-0 z-40 glass border-b border-line">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2">
+      <img src="/brand-assets/logo_thumbnail.svg" alt="" class="h-8 w-8 rounded-lg ring-1 ring-line">
+      <span class="font-display text-2xl tracking-ultra">automake</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-sm text-muted">
+      <a href="#producto" class="hover:text-bone">Producto</a>
+      <a href="#precios" class="hover:text-bone">Precios</a>
+      <a href="#tutoriales" class="hover:text-bone">Tutoriales</a>
+      <a href="#faq" class="hover:text-bone">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="/auth/sign_in" class="text-sm text-muted hover:text-bone px-3 py-2">Ingresar</a>
+      <a href="#precios" class="btn-primary text-sm font-medium px-4 py-2 rounded-full text-bone">Empezar</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="relative overflow-hidden">
+  <div class="absolute inset-0 gridlines opacity-60"></div>
+  <div class="absolute inset-x-0 -top-32 h-64 stripes opacity-30"></div>
+
+  <div class="relative mx-auto max-w-7xl px-5 sm:px-8 pt-20 pb-28">
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-8 reveal" style="animation-delay:.05s">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[.2em] text-muted mb-6 ring-1 ring-line rounded-full px-3 py-1 bg-carbon/60">
+          <span class="size-1.5 rounded-full bg-lime blink"></span> nueva temporada · v1
+        </div>
+        <h1 class="font-display tracking-ultra leading-[0.92] text-[clamp(56px,9vw,140px)]">
+          Atención al cliente <em class="not-italic text-grad">que se hace sola</em>.
+          <span class="block text-stroke">y la haces tuya.</span>
+        </h1>
+        <p class="mt-8 text-lg md:text-xl text-muted max-w-2xl">
+          Automake es una bandeja unificada para WhatsApp, Instagram, web y email —
+          con agentes IA, flujos automáticos, métricas en vivo y panel de equipo.
+          Implementás en horas, no en semanas.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a href="#precios" class="btn-primary inline-flex items-center gap-2 px-5 py-3 rounded-full text-bone font-medium">
+            Probar 14 días gratis
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#tutoriales" class="inline-flex items-center gap-2 px-5 py-3 rounded-full ring-1 ring-line hover:bg-carbon/70">
+            Ver tutoriales
+          </a>
+          <span class="text-xs text-muted ml-1">no necesitás tarjeta</span>
+        </div>
+
+        <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-px bg-line/60 ring-1 ring-line rounded-2xl overflow-hidden">
+          <div class="bg-carbon p-5">
+            <div class="font-display text-4xl text-grad num">12.4×</div>
+            <div class="text-xs text-muted mt-1">más rápido por consulta</div>
+          </div>
+          <div class="bg-carbon p-5">
+            <div class="font-display text-4xl text-grad num">94%</div>
+            <div class="text-xs text-muted mt-1">resolución sin humanos</div>
+          </div>
+          <div class="bg-carbon p-5">
+            <div class="font-display text-4xl text-grad num">7</div>
+            <div class="text-xs text-muted mt-1">canales en una bandeja</div>
+          </div>
+          <div class="bg-carbon p-5">
+            <div class="font-display text-4xl text-grad num">∞</div>
+            <div class="text-xs text-muted mt-1">conversaciones / mes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating mock -->
+      <div class="lg:col-span-4 pop relative" style="animation-delay:.2s">
+        <div class="relative ring-line glass rounded-3xl p-4 glow tilt">
+          <div class="flex items-center gap-1 px-1 pb-3">
+            <span class="size-2.5 rounded-full bg-red-400/80"></span>
+            <span class="size-2.5 rounded-full bg-yellow-400/80"></span>
+            <span class="size-2.5 rounded-full bg-emerald-400/80"></span>
+            <span class="ml-3 text-[11px] text-muted font-mono">automake / inbox</span>
+          </div>
+          <div class="rounded-2xl bg-ink/80 ring-1 ring-line p-4 space-y-3">
+            <div class="flex items-start gap-2.5">
+              <div class="size-7 rounded-full bg-gradient-to-br from-iris to-amethyst grid place-items-center text-[10px] font-bold">VF</div>
+              <div class="bg-carbon ring-1 ring-line rounded-2xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                <div class="text-sm">Hola, ¿hacen envíos a Salta?</div>
+                <div class="text-[10px] text-muted mt-1">WhatsApp · 10:42</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5 flex-row-reverse">
+              <div class="size-7 rounded-full bg-bone text-ink grid place-items-center text-[10px] font-bold">AI</div>
+              <div class="bg-iris/15 ring-1 ring-iris/30 rounded-2xl rounded-tr-sm px-3 py-2 max-w-[80%]">
+                <div class="text-sm">¡Sí! Enviamos a todo el país. ¿Querés que te cotice ahora?</div>
+                <div class="text-[10px] text-iris mt-1">automake · agente · 10:42</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-muted">
+              <div class="flex gap-1">
+                <span class="size-1.5 rounded-full bg-muted animate-bounce" style="animation-delay:0s"></span>
+                <span class="size-1.5 rounded-full bg-muted animate-bounce" style="animation-delay:.15s"></span>
+                <span class="size-1.5 rounded-full bg-muted animate-bounce" style="animation-delay:.3s"></span>
+              </div>
+              escribiendo…
+            </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-[11px] text-muted px-1">
+            <span class="font-mono">⌘ + K</span>
+            <span>resolución promedio · 38s</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- marquee -->
+  <div class="border-y border-line bg-ink/60">
+    <div class="overflow-hidden">
+      <div class="marquee whitespace-nowrap py-4 text-bone/70 font-mono text-sm uppercase tracking-widest flex gap-12">
+        <span>WhatsApp Business</span><span>·</span>
+        <span>Instagram DMs</span><span>·</span>
+        <span>Facebook Messenger</span><span>·</span>
+        <span>Email SMTP / IMAP</span><span>·</span>
+        <span>Webchat embebido</span><span>·</span>
+        <span>Telegram</span><span>·</span>
+        <span>SMS</span><span>·</span>
+        <span>API + Webhooks</span><span>·</span>
+        <span>WhatsApp Business</span><span>·</span>
+        <span>Instagram DMs</span><span>·</span>
+        <span>Facebook Messenger</span><span>·</span>
+        <span>Email SMTP / IMAP</span><span>·</span>
+        <span>Webchat embebido</span><span>·</span>
+        <span>Telegram</span><span>·</span>
+        <span>SMS</span><span>·</span>
+        <span>API + Webhooks</span><span>·</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="producto" class="relative py-28">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+      <div>
+        <div class="font-mono text-xs uppercase tracking-[.25em] text-muted mb-3">/ producto</div>
+        <h2 class="font-display text-5xl md:text-7xl tracking-ultra leading-[0.95] max-w-3xl">
+          Un panel. Todos los canales. <em class="text-grad not-italic">Cero caos.</em>
+        </h2>
+      </div>
+      <p class="text-muted max-w-md">
+        Construido sobre Chatwoot self-hosted y enriquecido con automatizaciones y branding propio.
+        Ejecutás flujos, métricas, IA, equipo — sin pegar herramientas con cinta.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-px bg-line/60 ring-1 ring-line rounded-3xl overflow-hidden">
+      <article class="bg-carbon p-7 tilt">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="size-10 rounded-xl bg-gradient-to-br from-iris/40 to-amethyst/40 ring-1 ring-line grid place-items-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h10M4 17h16" stroke="#F4F4F0" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="font-display text-2xl tracking-tightest">Bandeja única</h3>
+        </div>
+        <p class="text-muted leading-relaxed">WhatsApp, IG, FB, email, web — todos los mensajes en una sola vista. Etiquetás, asignás, resolvés. Tu equipo deja de saltar entre apps.</p>
+      </article>
+      <article class="bg-carbon p-7 tilt">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="size-10 rounded-xl bg-gradient-to-br from-iris/40 to-amethyst/40 ring-1 ring-line grid place-items-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#F4F4F0" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="font-display text-2xl tracking-tightest">Agentes IA</h3>
+        </div>
+        <p class="text-muted leading-relaxed">Captain (motor propio) responde, agenda, cotiza y deriva al humano cuando hace falta. Entrenás con tu doc, no con magia.</p>
+      </article>
+      <article class="bg-carbon p-7 tilt">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="size-10 rounded-xl bg-gradient-to-br from-iris/40 to-amethyst/40 ring-1 ring-line grid place-items-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#F4F4F0" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="#F4F4F0" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="font-display text-2xl tracking-tightest">Flujos sin código</h3>
+        </div>
+        <p class="text-muted leading-relaxed">Disparadores, condiciones, acciones. Si pasa X hacé Y, después Z. Visual, versionado, auditable.</p>
+      </article>
+
+      <article class="bg-carbon p-7 tilt">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="size-10 rounded-xl bg-gradient-to-br from-iris/40 to-amethyst/40 ring-1 ring-line grid place-items-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 21l4-4 4 4 4-8 6 8" stroke="#F4F4F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="font-display text-2xl tracking-tightest">Métricas en vivo</h3>
+        </div>
+        <p class="text-muted leading-relaxed">SLA, CSAT, tiempo de primera respuesta, volumen por canal. Dashboards reales sin Excel.</p>
+      </article>
+      <article class="bg-carbon p-7 tilt">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="size-10 rounded-xl bg-gradient-to-br from-iris/40 to-amethyst/40 ring-1 ring-line grid place-items-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#F4F4F0" stroke-width="1.5"/><path d="M4 9h16" stroke="#F4F4F0" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="font-display text-2xl tracking-tightest">CRM ligero</h3>
+        </div>
+        <p class="text-muted leading-relaxed">Contactos, segmentos, notas, atributos personalizados. Una ficha por cliente con toda su historia.</p>
+      </article>
+      <article class="bg-carbon p-7 tilt">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="size-10 rounded-xl bg-gradient-to-br from-iris/40 to-amethyst/40 ring-1 ring-line grid place-items-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 8a5 5 0 1 1 10 0v3a5 5 0 1 1-10 0z" stroke="#F4F4F0" stroke-width="1.5"/><path d="M12 14v5M8 19h8" stroke="#F4F4F0" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="font-display text-2xl tracking-tightest">Tu marca, tu URL</h3>
+        </div>
+        <p class="text-muted leading-relaxed">Logo, dominio, idioma. Tus clientes ven Automake, no una herramienta genérica.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="precios" class="relative py-28 border-t border-line bg-gradient-to-b from-ink to-carbon/40">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="font-mono text-xs uppercase tracking-[.25em] text-muted mb-3">/ planes</div>
+      <h2 class="font-display text-5xl md:text-7xl tracking-ultra leading-[0.95]">
+        Precios <em class="not-italic text-grad">claros</em>. Sin sorpresas.
+      </h2>
+      <p class="mt-5 text-muted">Pagás en USD vía PayPal. Cancelás cuando quieras. Primer mes con doble descuento si te suscribís hoy.</p>
+      <div class="mt-6 inline-flex items-center gap-1 p-1 rounded-full ring-1 ring-line bg-carbon/70 text-sm">
+        <button data-cycle="monthly" class="cycle-btn px-4 py-1.5 rounded-full bg-bone text-ink font-medium">Mensual</button>
+        <button data-cycle="yearly"  class="cycle-btn px-4 py-1.5 rounded-full text-muted hover:text-bone">Anual <span class="text-hot ml-1 text-xs">-20%</span></button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- STARTER -->
+      <div class="price-card relative rounded-3xl bg-carbon ring-1 ring-line p-7 flex flex-col">
+        <div class="flex items-baseline justify-between">
+          <h3 class="font-display text-3xl tracking-tightest">Starter</h3>
+          <span class="font-mono text-xs text-muted">solo dueños</span>
+        </div>
+        <p class="text-muted mt-2 text-sm">Para empezar a centralizar mensajes y probar bots.</p>
+        <div class="my-7">
+          <span class="font-display text-6xl tracking-ultra num" data-price-monthly="29" data-price-yearly="23">$29</span>
+          <span class="text-muted">/ mes</span>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex gap-2"><span class="text-lime">✓</span> 1 agente · 2 canales</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> 1.000 conversaciones / mes</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> Bot básico de FAQs</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> Marca propia · dominio Automake</li>
+          <li class="flex gap-2 text-muted/70"><span>·</span> Sin Captain IA</li>
+        </ul>
+        <div class="paypal-button mt-8" data-plan="starter"></div>
+      </div>
+
+      <!-- PRO -->
+      <div class="price-card relative rounded-3xl bg-carbon ring-1 ring-line p-7 flex flex-col" data-feature="true">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] uppercase tracking-widest bg-gradient-to-r from-iris to-amethyst text-bone font-medium">El más elegido</div>
+        <div class="flex items-baseline justify-between">
+          <h3 class="font-display text-3xl tracking-tightest">Pro</h3>
+          <span class="font-mono text-xs text-muted">equipos</span>
+        </div>
+        <p class="text-muted mt-2 text-sm">Cuando ya escalás y necesitás IA y métricas.</p>
+        <div class="my-7">
+          <span class="font-display text-6xl tracking-ultra num" data-price-monthly="79" data-price-yearly="63">$79</span>
+          <span class="text-muted">/ mes</span>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex gap-2"><span class="text-lime">✓</span> Hasta 5 agentes · canales ilimitados</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> 10.000 conversaciones / mes</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> Captain IA + flujos automáticos</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> CSAT, SLA, reportes avanzados</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> Dominio personalizado</li>
+        </ul>
+        <div class="paypal-button mt-8" data-plan="pro"></div>
+      </div>
+
+      <!-- SCALE -->
+      <div class="price-card relative rounded-3xl bg-carbon ring-1 ring-line p-7 flex flex-col">
+        <div class="flex items-baseline justify-between">
+          <h3 class="font-display text-3xl tracking-tightest">Scale</h3>
+          <span class="font-mono text-xs text-muted">marcas</span>
+        </div>
+        <p class="text-muted mt-2 text-sm">Volumen alto, SLAs, soporte dedicado.</p>
+        <div class="my-7">
+          <span class="font-display text-6xl tracking-ultra num" data-price-monthly="199" data-price-yearly="159">$199</span>
+          <span class="text-muted">/ mes</span>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex gap-2"><span class="text-lime">✓</span> Agentes ilimitados</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> 100.000 conversaciones / mes</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> Multi-cuenta · roles personalizados</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> Onboarding 1-a-1 + soporte prioritario</li>
+          <li class="flex gap-2"><span class="text-lime">✓</span> Webhook y API privadas</li>
+        </ul>
+        <div class="paypal-button mt-8" data-plan="scale"></div>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-muted mt-10 font-mono">¿Necesitás más? <a class="underline-grad text-bone" href="mailto:hola@automake.app">Hablemos de Enterprise</a>.</p>
+  </div>
+</section>
+
+<!-- TUTORIALS -->
+<section id="tutoriales" class="relative py-28 border-t border-line">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+      <div>
+        <div class="font-mono text-xs uppercase tracking-[.25em] text-muted mb-3">/ tutoriales</div>
+        <h2 class="font-display text-5xl md:text-7xl tracking-ultra leading-[0.95]">
+          De cero a <em class="text-grad not-italic">vendiendo en 1 tarde</em>.
+        </h2>
+      </div>
+      <p class="text-muted max-w-md">Cinco pasos para tener tu canal andando, tu bot entrenado y tu equipo onboardeado. Todo en video corto.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- card -->
+      <a href="#" class="group tilt rounded-3xl ring-1 ring-line bg-carbon overflow-hidden">
+        <div class="relative aspect-[4/3] gridlines stripes">
+          <div class="absolute inset-0 grid place-items-center">
+            <div class="size-16 rounded-full grid place-items-center bg-bone/95 text-ink ring-4 ring-bone/10 group-hover:scale-105 transition">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <span class="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-widest bg-ink/70 ring-1 ring-line px-2 py-1 rounded-full">01 · 4 min</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl tracking-tightest mb-2">Crear tu cuenta y conectar WhatsApp</h3>
+          <p class="text-muted text-sm">Onboarding, dominio personalizado y primer canal en menos de 5 minutos.</p>
+        </div>
+      </a>
+
+      <a href="#" class="group tilt rounded-3xl ring-1 ring-line bg-carbon overflow-hidden">
+        <div class="relative aspect-[4/3] gridlines stripes">
+          <div class="absolute inset-0 grid place-items-center">
+            <div class="size-16 rounded-full grid place-items-center bg-bone/95 text-ink ring-4 ring-bone/10 group-hover:scale-105 transition">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <span class="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-widest bg-ink/70 ring-1 ring-line px-2 py-1 rounded-full">02 · 6 min</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl tracking-tightest mb-2">Entrenar a Captain con tu doc</h3>
+          <p class="text-muted text-sm">Subís PDFs o pegás URLs y tu agente IA empieza a responder con tu tono.</p>
+        </div>
+      </a>
+
+      <a href="#" class="group tilt rounded-3xl ring-1 ring-line bg-carbon overflow-hidden">
+        <div class="relative aspect-[4/3] gridlines stripes">
+          <div class="absolute inset-0 grid place-items-center">
+            <div class="size-16 rounded-full grid place-items-center bg-bone/95 text-ink ring-4 ring-bone/10 group-hover:scale-105 transition">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <span class="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-widest bg-ink/70 ring-1 ring-line px-2 py-1 rounded-full">03 · 5 min</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl tracking-tightest mb-2">Crear flujos automáticos</h3>
+          <p class="text-muted text-sm">Si llega una consulta de envío, etiquetá, asigná y respondé con plantilla.</p>
+        </div>
+      </a>
+
+      <a href="#" class="group tilt rounded-3xl ring-1 ring-line bg-carbon overflow-hidden">
+        <div class="relative aspect-[4/3] gridlines stripes">
+          <div class="absolute inset-0 grid place-items-center">
+            <div class="size-16 rounded-full grid place-items-center bg-bone/95 text-ink ring-4 ring-bone/10 group-hover:scale-105 transition">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <span class="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-widest bg-ink/70 ring-1 ring-line px-2 py-1 rounded-full">04 · 7 min</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl tracking-tightest mb-2">Sumar equipo y roles</h3>
+          <p class="text-muted text-sm">Invitás operadores, supervisores y administradores con permisos finos.</p>
+        </div>
+      </a>
+
+      <a href="#" class="group tilt rounded-3xl ring-1 ring-line bg-carbon overflow-hidden">
+        <div class="relative aspect-[4/3] gridlines stripes">
+          <div class="absolute inset-0 grid place-items-center">
+            <div class="size-16 rounded-full grid place-items-center bg-bone/95 text-ink ring-4 ring-bone/10 group-hover:scale-105 transition">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <span class="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-widest bg-ink/70 ring-1 ring-line px-2 py-1 rounded-full">05 · 8 min</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-display text-2xl tracking-tightest mb-2">Métricas, SLA y CSAT</h3>
+          <p class="text-muted text-sm">Configurás objetivos, alertas y encuestas para medir lo que importa.</p>
+        </div>
+      </a>
+
+      <a href="/api-docs" class="group tilt rounded-3xl ring-1 ring-iris/40 bg-gradient-to-br from-iris/20 to-amethyst/10 overflow-hidden p-6 flex flex-col justify-between">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-bone/70">bonus</div>
+        <h3 class="font-display text-3xl tracking-tightest">Documentación API <em class="not-italic">→</em></h3>
+        <p class="text-muted text-sm">Webhooks, eventos, autenticación. Todo lo que necesitás para integrar con tu sistema.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL / QUOTE -->
+<section class="relative py-28 border-t border-line">
+  <div class="mx-auto max-w-5xl px-5 sm:px-8 text-center">
+    <div class="font-mono text-xs uppercase tracking-[.25em] text-muted mb-6">/ voces</div>
+    <p class="font-display text-3xl md:text-5xl tracking-tightest leading-[1.1]">
+      “Pasamos de 6 horas de respuesta a <em class="text-grad not-italic">38 segundos</em>. El equipo dejó de odiar los lunes.”
+    </p>
+    <div class="mt-8 inline-flex items-center gap-3">
+      <div class="size-10 rounded-full bg-gradient-to-br from-iris to-amethyst grid place-items-center text-sm font-bold">VF</div>
+      <div class="text-left">
+        <div class="font-medium">Vian Ferretería</div>
+        <div class="text-xs text-muted">Cliente piloto · Salta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="relative py-28 border-t border-line">
+  <div class="mx-auto max-w-4xl px-5 sm:px-8">
+    <div class="text-center mb-12">
+      <div class="font-mono text-xs uppercase tracking-[.25em] text-muted mb-3">/ FAQ</div>
+      <h2 class="font-display text-5xl md:text-6xl tracking-ultra leading-[0.95]">Preguntas <em class="not-italic text-grad">honestas</em>.</h2>
+    </div>
+    <div class="divide-y divide-line ring-1 ring-line rounded-3xl overflow-hidden bg-carbon/60">
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl tracking-tightest">¿Qué pasa después de los 14 días?</span>
+          <span class="chev text-muted text-2xl">+</span>
+        </summary>
+        <p class="mt-3 text-muted">Te avisamos antes y elegís plan. Si no hacés nada, la cuenta queda en modo lectura — tus datos no se borran.</p>
+      </details>
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl tracking-tightest">¿Cómo cobran?</span>
+          <span class="chev text-muted text-2xl">+</span>
+        </summary>
+        <p class="mt-3 text-muted">Vía PayPal Subscriptions. Tarjeta, débito o saldo PayPal. Facturación automática mensual o anual.</p>
+      </details>
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl tracking-tightest">¿Migro de otra herramienta?</span>
+          <span class="chev text-muted text-2xl">+</span>
+        </summary>
+        <p class="mt-3 text-muted">Importamos contactos y conversaciones de CSV o vía API. Onboarding asistido en Pro y Scale.</p>
+      </details>
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl tracking-tightest">¿Mis datos están seguros?</span>
+          <span class="chev text-muted text-2xl">+</span>
+        </summary>
+        <p class="mt-3 text-muted">Sí. Self-hosted en Railway, Postgres encriptado, backups diarios, HTTPS forzado, sin terceros leyendo tus chats.</p>
+      </details>
+      <details class="group p-6">
+        <summary class="flex items-center justify-between gap-6">
+          <span class="font-display text-xl tracking-tightest">¿Tengo soporte humano?</span>
+          <span class="chev text-muted text-2xl">+</span>
+        </summary>
+        <p class="mt-3 text-muted">Sí. WhatsApp directo en Pro y Scale. Chat dentro del panel para todos los planes.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="relative py-28 border-t border-line">
+  <div class="mx-auto max-w-6xl px-5 sm:px-8">
+    <div class="relative rounded-[2.5rem] ring-1 ring-line p-10 md:p-16 overflow-hidden bg-carbon/60">
+      <div class="absolute -inset-px gridlines opacity-50"></div>
+      <div class="relative">
+        <h2 class="font-display text-5xl md:text-7xl tracking-ultra leading-[0.95] max-w-3xl">
+          ¿Listo para dejar de responder <em class="text-grad not-italic">lo mismo</em>?
+        </h2>
+        <p class="text-muted mt-5 max-w-xl">Encendemos tu cuenta, conectamos tu primer canal y vemos juntos cómo te ahorras la mitad del día.</p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="#precios" class="btn-primary inline-flex items-center gap-2 px-5 py-3 rounded-full text-bone font-medium">Empezar gratis</a>
+          <a href="mailto:hola@automake.app" class="inline-flex items-center gap-2 px-5 py-3 rounded-full ring-1 ring-line hover:bg-carbon/70">Hablar con ventas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-line py-14">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 grid md:grid-cols-4 gap-10 text-sm">
+    <div class="md:col-span-2">
+      <div class="flex items-center gap-2 mb-4">
+        <img src="/brand-assets/logo_thumbnail.svg" alt="" class="h-7 w-7 rounded-lg ring-1 ring-line">
+        <span class="font-display text-2xl tracking-ultra">automake</span>
+      </div>
+      <p class="text-muted max-w-sm">Mensajería omnicanal con IA. Hecho con cariño en Argentina · Salta.</p>
+    </div>
+    <div>
+      <div class="font-mono text-[10px] uppercase tracking-widest text-muted mb-3">Producto</div>
+      <ul class="space-y-2 text-muted">
+        <li><a href="#producto" class="hover:text-bone">Features</a></li>
+        <li><a href="#precios" class="hover:text-bone">Precios</a></li>
+        <li><a href="#tutoriales" class="hover:text-bone">Tutoriales</a></li>
+        <li><a href="/auth/sign_in" class="hover:text-bone">Ingresar</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="font-mono text-[10px] uppercase tracking-widest text-muted mb-3">Compañía</div>
+      <ul class="space-y-2 text-muted">
+        <li><a href="mailto:hola@automake.app" class="hover:text-bone">Contacto</a></li>
+        <li><a href="/landing/terminos.html" class="hover:text-bone">Términos</a></li>
+        <li><a href="/landing/privacidad.html" class="hover:text-bone">Privacidad</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mt-10 text-center text-xs text-muted">© <span id="yr"></span> Automake — Todos los derechos reservados.</div>
+</footer>
+
+<!-- PAYPAL SDK (sandbox placeholder — reemplazá CLIENT_ID por el real en producción) -->
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&intent=subscription&vault=true" data-sdk-integration-source="button-factory"></script>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // pricing cycle toggle
+  const monthlyBtn = document.querySelector('[data-cycle="monthly"]');
+  const yearlyBtn  = document.querySelector('[data-cycle="yearly"]');
+  function setCycle(c){
+    document.querySelectorAll('[data-price-monthly]').forEach(el=>{
+      const v = c==='monthly' ? el.dataset.priceMonthly : el.dataset.priceYearly;
+      el.textContent = '$' + v;
+    });
+    [monthlyBtn,yearlyBtn].forEach(b=>{
+      b.classList.toggle('bg-bone', b.dataset.cycle===c);
+      b.classList.toggle('text-ink', b.dataset.cycle===c);
+      b.classList.toggle('text-muted', b.dataset.cycle!==c);
+    });
+  }
+  monthlyBtn.addEventListener('click',()=>setCycle('monthly'));
+  yearlyBtn.addEventListener('click',()=>setCycle('yearly'));
+
+  // PAYPAL — plan IDs deben configurarse vía data-plan-id en el botón.
+  // Cuando tengas tus PayPal Subscription Plan IDs (P-XXXXX), reemplazá en window.AUTOMAKE_PAYPAL_PLANS:
+  window.AUTOMAKE_PAYPAL_PLANS = {
+    starter: { monthly: 'P-STARTER-MONTHLY', yearly: 'P-STARTER-YEARLY' },
+    pro:     { monthly: 'P-PRO-MONTHLY',     yearly: 'P-PRO-YEARLY' },
+    scale:   { monthly: 'P-SCALE-MONTHLY',   yearly: 'P-SCALE-YEARLY' }
+  };
+
+  function renderPayPal(){
+    if(!window.paypal) return;
+    document.querySelectorAll('.paypal-button').forEach(el => { el.innerHTML = ''; });
+    const cycle = monthlyBtn.classList.contains('bg-bone') ? 'monthly' : 'yearly';
+    document.querySelectorAll('.paypal-button').forEach(el => {
+      const plan = el.dataset.plan;
+      const planId = (window.AUTOMAKE_PAYPAL_PLANS[plan] || {})[cycle];
+      try {
+        paypal.Buttons({
+          style: { color: 'white', shape: 'pill', label: 'subscribe', layout: 'horizontal' },
+          createSubscription: function(data, actions) {
+            return actions.subscription.create({ plan_id: planId });
+          },
+          onApprove: function(data) {
+            window.location.href = '/auth/sign_in?subscribed=' + encodeURIComponent(data.subscriptionID);
+          },
+          onError: function(err){ console.warn('PayPal error', err); }
+        }).render(el);
+      } catch(e) {
+        el.innerHTML = '<div class="text-xs text-muted font-mono text-center">PayPal · pendiente de configurar</div>';
+      }
+    });
+  }
+  monthlyBtn.addEventListener('click', renderPayPal);
+  yearlyBtn.addEventListener('click', renderPayPal);
+  window.addEventListener('load', renderPayPal);
+</script>
+
+</body>
+</html>
