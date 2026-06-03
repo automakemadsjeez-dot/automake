@@ -7,6 +7,45 @@
 <meta name="description" content="Bandeja unificada con IA. WhatsApp, Instagram, web, email." />
 <link rel="icon" href="/brand-assets/favicon.svg" type="image/svg+xml" />
 
+<!-- SEO: identidad consolidada de la red Madsjeez (sameAs señala a Google que es un solo dueño) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Automake",
+  "alternateName": ["Madsjeez", "automakemadsjeez"],
+  "url": "https://automake-production.up.railway.app/landing/",
+  "logo": "https://automake-production.up.railway.app/brand-assets/logo.svg",
+  "founder": { "@type": "Person", "name": "Madsjeez" },
+  "areaServed": { "@type": "Country", "name": "Argentina" },
+  "knowsAbout": ["Customer support automation","AI chatbots","WhatsApp Business","Omnichannel messaging"],
+  "sameAs": [
+    "https://www.madsjeez.com.ar",
+    "https://www.madsjeezdesign.com",
+    "https://www.appjeezpro.com",
+    "https://www.appjeezpro.store",
+    "https://www.trabajocerca.site",
+    "https://www.marda.site",
+    "https://www.mellimelos.site"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Automake",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": [
+    {"@type":"Offer","name":"Starter","price":"29","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Pro","price":"79","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Scale","price":"199","priceCurrency":"USD"}
+  ],
+  "publisher": { "@type":"Organization","name":"Madsjeez" }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,30..100,0..1;1,9..144,300..900,30..100,0..1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -868,6 +907,7 @@ tailwind.config = {
         <span class="display text-3xl">automake</span>
       </div>
       <p class="text-cream/60 max-w-md leading-relaxed">Mensajería omnicanal con IA. Hecho con cariño en Salta, AR. Self-hosted en Railway. Branding tuyo, datos tuyos.</p>
+      <p class="text-cream/40 text-xs mt-4">Producto de <a href="https://www.madsjeez.com.ar" rel="me noopener" class="ed-link text-cream">Madsjeez Studio</a>.</p>
     </div>
     <div>
       <div class="ticker text-cream/40 mb-3">producto</div>
@@ -887,8 +927,60 @@ tailwind.config = {
       </ul>
     </div>
   </div>
+
+  <!-- ECOSISTEMA / RED MADSJEEZ -->
+  <div class="border-t border-cream/10">
+    <div class="mx-auto max-w-[1400px] px-6 py-12">
+      <div class="flex items-end justify-between mb-8 flex-wrap gap-3">
+        <div>
+          <div class="ticker text-cream/40 mb-2">/ ecosistema</div>
+          <h3 class="display text-3xl text-cream">Red <span class="display-italic">Madsjeez</span>.</h3>
+        </div>
+        <p class="text-cream/50 text-sm max-w-md">Productos hermanos, mismo estudio. Diseño, software y data — todo bajo el mismo techo.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-px bg-cream/10 ring-1 ring-cream/10 rounded-2xl overflow-hidden">
+        <a href="https://www.madsjeez.com.ar" rel="me noopener" class="group bg-ink hover:bg-soot transition p-5">
+          <div class="ticker text-flame mb-2">01 — studio</div>
+          <div class="display text-xl text-cream group-hover:translate-x-1 transition-transform">madsjeez<span class="text-cream/40">.com.ar</span></div>
+          <div class="text-cream/50 text-xs mt-2">Estudio de software y producto</div>
+        </a>
+        <a href="https://www.madsjeezdesign.com" rel="me noopener" class="group bg-ink hover:bg-soot transition p-5">
+          <div class="ticker text-flame mb-2">02 — diseño</div>
+          <div class="display text-xl text-cream group-hover:translate-x-1 transition-transform">madsjeezdesign<span class="text-cream/40">.com</span></div>
+          <div class="text-cream/50 text-xs mt-2">Branding, UI y dirección de arte</div>
+        </a>
+        <a href="https://www.appjeezpro.com" rel="me noopener" class="group bg-ink hover:bg-soot transition p-5">
+          <div class="ticker text-flame mb-2">03 — saas</div>
+          <div class="display text-xl text-cream group-hover:translate-x-1 transition-transform">appjeezpro<span class="text-cream/40">.com</span></div>
+          <div class="text-cream/50 text-xs mt-2">App pro para profesionales</div>
+        </a>
+        <a href="https://www.appjeezpro.store" rel="me noopener" class="group bg-ink hover:bg-soot transition p-5">
+          <div class="ticker text-flame mb-2">04 — store</div>
+          <div class="display text-xl text-cream group-hover:translate-x-1 transition-transform">appjeezpro<span class="text-cream/40">.store</span></div>
+          <div class="text-cream/50 text-xs mt-2">Marketplace del ecosistema</div>
+        </a>
+        <a href="https://www.trabajocerca.site" rel="me noopener" class="group bg-ink hover:bg-soot transition p-5">
+          <div class="ticker text-flame mb-2">05 — empleo</div>
+          <div class="display text-xl text-cream group-hover:translate-x-1 transition-transform">trabajocerca<span class="text-cream/40">.site</span></div>
+          <div class="text-cream/50 text-xs mt-2">Trabajos por barrio en Salta</div>
+        </a>
+        <a href="https://www.marda.site" rel="me noopener" class="group bg-ink hover:bg-soot transition p-5">
+          <div class="ticker text-flame mb-2">06 — marda</div>
+          <div class="display text-xl text-cream group-hover:translate-x-1 transition-transform">marda<span class="text-cream/40">.site</span></div>
+          <div class="text-cream/50 text-xs mt-2">Producto hermano</div>
+        </a>
+        <a href="https://www.mellimelos.site" rel="me noopener" class="group bg-ink hover:bg-soot transition p-5">
+          <div class="ticker text-flame mb-2">07 — mellimelos</div>
+          <div class="display text-xl text-cream group-hover:translate-x-1 transition-transform">mellimelos<span class="text-cream/40">.site</span></div>
+          <div class="text-cream/50 text-xs mt-2">Tienda online del ecosistema</div>
+        </a>
+      </div>
+      <p class="text-cream/30 text-xs mt-6 ticker">↳ propiedades verificadas (rel="me") · mismo equipo, distintas verticales</p>
+    </div>
+  </div>
+
   <div class="border-t border-cream/10 py-5 text-center ticker text-cream/40">
-    © <span id="yr2"></span> automake · todos los derechos reservados
+    © <span id="yr2"></span> automake · parte de la red madsjeez · todos los derechos reservados
   </div>
 </footer>
 
